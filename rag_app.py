@@ -47,3 +47,11 @@ if uploaded_file is not None:
 
     st.write("Total text chunks created:", len(chunks))
 
+    # Convert text chunks into embeddings
+    from sentence_transformers import SentenceTransformer
+
+    embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+
+    chunk_embeddings = embedding_model.encode(chunks)
+
+    st.success("Text embeddings created successfully!")
