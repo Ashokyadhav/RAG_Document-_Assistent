@@ -76,3 +76,22 @@ if uploaded_file is not None:
     question = st.text_input(
         "Enter your question about the PDF"
     )
+
+    if question:
+        question_embedding = embedding_model.encode(
+            [question]
+        ).astype("float32")
+
+        distances, indices = faiss_index.search(
+            question_embedding, 3
+        )
+
+        relevant_chunks = [
+            chunks[i] for i in indices[0]
+            if i < len(chunks)
+        ]
+
+        st.subheader("Relevant PDF information")
+
+        for chunk in relevant_chunks:
+            st.write(chunk)
