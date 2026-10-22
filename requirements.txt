@@ -1,0 +1,5 @@
+streamlit
+pypdf>=5.0.0
+sentence-transformers
+faiss-cpu
+groq
