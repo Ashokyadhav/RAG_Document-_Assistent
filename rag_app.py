@@ -55,3 +55,19 @@ if uploaded_file is not None:
     chunk_embeddings = embedding_model.encode(chunks)
 
     st.success("Text embeddings created successfully!")
+
+    # Create a FAISS search index
+    import faiss
+    import numpy as np
+
+    chunk_embeddings = np.array(
+        chunk_embeddings
+    ).astype("float32")
+
+    faiss_index = faiss.IndexFlatL2(
+        chunk_embeddings.shape[1]
+    )
+
+    faiss_index.add(chunk_embeddings)
+
+    st.success("FAISS search index created successfully!")
