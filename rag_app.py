@@ -9,10 +9,10 @@ st.set_page_config(
 st.title("📚 RAG Document Assistant")
 
 st.write(
-    "Upload a college document and ask questions about it."
+    "Upload any PDF document and ask questions about its content."
 )
 
-st.subheader("1. Upload your college PDF")
+st.subheader("1. Upload your PDF document")
 
 uploaded_file = st.file_uploader(
     "Choose a PDF document",
