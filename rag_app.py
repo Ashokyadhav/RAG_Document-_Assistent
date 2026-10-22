@@ -33,3 +33,17 @@ if uploaded_file is not None:
 
     st.write("Total characters extracted:", len(document_text))
 
+    # Split the PDF text into smaller chunks
+    chunk_size = 1000
+    overlap = 200
+
+    chunks = []
+
+    for start in range(0, len(document_text), chunk_size - overlap):
+        chunk = document_text[start:start + chunk_size]
+
+        if chunk.strip():
+            chunks.append(chunk)
+
+    st.write("Total text chunks created:", len(chunks))
+
