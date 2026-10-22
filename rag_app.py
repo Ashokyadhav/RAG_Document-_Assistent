@@ -95,3 +95,43 @@ if uploaded_file is not None:
 
         for chunk in relevant_chunks:
             st.write(chunk)
+
+    st.subheader("3. AI Answer")
+
+    from groq import Groq
+
+    import os
+
+    api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+
+    if not api_key:
+        st.error("Groq API key is not configured.")
+    else:
+        client = Groq(api_key=api_key)
+
+        context = "\n\n".join(relevant_chunks)
+
+        prompt = f"""
+        Answer the question using only the context below.
+        If the answer is not in the context, say:
+        "I could not find this information in the uploaded PDF."
+
+        Context:
+        {context}
+
+        Question:
+        {question}
+        """
+
+        with st.spinner("Generating answer..."):
+            response = client.chat.completions.create(
+                model="openai/gpt-oss-120b",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+
+        st.write(response.choices[0].message.content)
