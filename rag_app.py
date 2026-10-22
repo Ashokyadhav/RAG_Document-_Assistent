@@ -71,3 +71,8 @@ if uploaded_file is not None:
     faiss_index.add(chunk_embeddings)
 
     st.success("FAISS search index created successfully!")
+    st.subheader("2. Ask a question")
+
+    question = st.text_input(
+        "Enter your question about the PDF"
+    )
