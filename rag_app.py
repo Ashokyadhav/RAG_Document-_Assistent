@@ -97,6 +97,9 @@ if uploaded_file is not None:
             st.write(chunk)
 
     st.subheader("3. AI Answer")
+    if not question:
+        st.info("Enter a question above to get an AI answer.")
+        st.stop()
 
     from groq import Groq
 
